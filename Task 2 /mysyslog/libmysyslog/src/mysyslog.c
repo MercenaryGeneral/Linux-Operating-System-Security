@@ -1,4 +1,4 @@
-// /mysyslog.c
+// src/mysyslog.c
 
 #include <stdio.h>
 #include <time.h>
