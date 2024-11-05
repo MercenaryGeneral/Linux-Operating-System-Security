@@ -1,0 +1,13 @@
+# debian/control
+Source: libmysyslog-text
+Section: libs
+Priority: optional
+Maintainer: Your Name <your.email@example.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.8
+
+Package: libmysyslog-text
+Architecture: any
+Depends: libmysyslog
+Description: Text logging driver for libmysyslog
+ This package provides a text logging driver for the libmysyslog library.
