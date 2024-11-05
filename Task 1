@@ -1,0 +1,85 @@
+#!/bin/bash
+
+# Функция для вывода справки
+function show_help {
+    echo "Использование: $0 [OPTIONS]"
+    echo ""
+    echo "OPTIONS:"
+    echo "  -u, --users        Показать пользователей и их домашние директории"
+    echo "  -p, --processes    Показать запущенные процессы"
+    echo "  -h, --help         Показать эту справку"
+    echo "  -l PATH, --log PATH    Записать вывод в файл по указанному пути"
+    echo "  -e PATH, --errors PATH  Записать ошибки в файл по указанному пути"
+}
+
+# Функция для вывода пользователей и их домашних директорий
+function list_users {
+    if [[ -n "$log_file" ]]; then
+        getent passwd | awk -F: '{print $1, $6}' | sort > "$log_file" 2>>"$error_file"
+    else
+        getent passwd | awk -F: '{print $1, $6}' | sort
+    fi
+}
+
+# Функция для вывода запущенных процессов
+function list_processes {
+    if [[ -n "$log_file" ]]; then
+        ps -eo pid,comm --sort=pid > "$log_file" 2>>"$error_file"
+    else
+        ps -eo pid,comm --sort=pid
+    fi
+}
+
+# Обработка аргументов командной строки
+log_file=""
+error_file=""
+while getopts ":u:p:hl:e:" opt; do
+    case $opt in
+        u)
+            list_users
+            exit 0
+            ;;
+        p)
+            list_processes
+            exit 0
+            ;;
+        h)
+            show_help
+            exit 0
+            ;;
+        l)
+            log_file="$OPTARG"
+            ;;
+        e)
+            error_file="$OPTARG"
+            ;;
+        \?)
+            echo "Неверный параметр: -$OPTARG" >&2
+            show_help
+            exit 1
+            ;;
+        :)
+            echo "Опция -$OPTARG требует аргумент." >&2
+            show_help
+            exit 1
+            ;;
+    esac
+done
+
+# Проверка на наличие лог-файла и прав на запись
+if [[ -n "$log_file" && ! -w "$(dirname "$log_file")" ]]; then
+    echo "Ошибка: Нет прав на запись в файл $log_file" >&2
+    exit 1
+fi
+
+# Проверка на наличие файла для ошибок и прав на запись
+if [[ -n "$error_file" && ! -w "$(dirname "$error_file")" ]]; then
+    echo "Ошибка: Нет прав на запись в файл $error_file" >&2
+    exit 1
+fi
+
+# Если не указаны аргументы, выводим справку
+if [[ -z "$log_file" && -z "$error_file" ]]; then
+    show_help
+    exit 1
+fi
