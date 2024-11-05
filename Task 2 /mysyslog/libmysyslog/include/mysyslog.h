@@ -1,4 +1,4 @@
-// /mysyslog.h
+// include/mysyslog.h
 
 #ifndef MYSYSLOG_H
 #define MYSYSLOG_H
