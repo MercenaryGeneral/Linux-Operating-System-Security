@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # функция для вывода подсказок (справки) о командах
 function show_help {
     echo "Uasge: $0 [options]"
