@@ -1,4 +1,14 @@
 #!/bin/bash
+# функция для вывода подсказок (справки) о командах
+function show_help {
+    echo "Uasge: $0 [options]"
+    echo "Options:"
+    echo "  -u, --users            List users and their home directories"
+    echo "  -p, --processes        List running processes"
+    echo "  -h, --help             Show this help message"
+    echo "  -l PATH, --log PATH    Redirect output to a file at PATH"
+    echo "  -e PATH, --errors PATH Redirect error output to a file at PATH"
+}
 
 function list_users {
     echo "List of users"
@@ -22,17 +32,6 @@ function list_processes {
 #    pid: идентификатор процесса (Process ID).
 #    comm: имя команды или процесса.
 #    --sort=pid: сортирует вывод по идентификатору процесса (PID) в порядке возрастания.
-
-# функция для вывода подсказок (справки) о командах
-function show_help {
-    echo "Uasge: $0 [options]"
-    echo "Options:"
-    echo "  -u, --users            List users and their home directories"
-    echo "  -p, --processes        List running processes"
-    echo "  -h, --help             Show this help message"
-    echo "  -l PATH, --log PATH    Redirect output to a file at PATH"
-    echo "  -e PATH, --errors PATH Redirect error output to a file at PATH"
-}
 
 log_path=""
 error_path=""
