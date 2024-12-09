@@ -5,12 +5,9 @@ LDFLAGS = -L../libmysyslog -lmysyslog
 all: mysyslog-client
 
 mysyslog-client: main.o
-	$(CC) -o $@ $^ $(LDFLAGS)
+	$(CC) -o $@ $^ $(LDFLAGS) $(include_dirs)
 
-main.o: main.c getopt.h ../libmysyslog/mysyslog.h
+main.o: main.c getopt.h $(include_dirs) ../libmysyslog/mysyslog.h
 
 clean:
 	rm -f *.o mysyslog-client
-
-deb: debian/control debian/ rules debian/rules debian/source/format
-	tarp -c -F libmysyslog-client.deb --verbose
