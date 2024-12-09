@@ -1,23 +1,10 @@
 # mysyslog-client
 
-A command-line client application using the `libmysyslog` library to log messages with customizable levels, drivers, formats, and paths.
+## Описание
+Клиентское приложение для использования библиотеки `libmysyslog` и журналирования сообщений.
 
-## Building
-
-To build the client, run the following command in the `libmysyslog-client` directory:
+## Сборка
+Используйте команду `make` для сборки клиента.
 
 ```bash
-make all
-
-mysyslog-client [options]
-
-Options:
-  -m, --message   Message to log
-  -l, --level    Log level (DEBUG, INFO, WARN, ERROR, CRITICAL)
-  -d, --driver   Driver to use (text, json)
-  -f, --format   Format to use (text, json)
-  -p, --path    Log file path
-
-To create a debian package, run:
-
-make deb
+make
