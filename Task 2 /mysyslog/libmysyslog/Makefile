@@ -1,14 +1,16 @@
-CC = gcc
-CFLAGS = -Wall -Werror
+CC=gcc
+CFLAGS=-Iinclude -fPIC
+OBJ=mysyslog.o
+TARGET=libmysyslog.so
 
-.PHONY: all clean deb install
+all: $(TARGET)
 
-all: libmysyslog.a
-
-libmysyslog.a: mysyslog.o
-	$(CC) -shared -o $@ $^
-
-mysyslog.o: mysyslog.c mysyslog.h
+$(TARGET): $(OBJ)
+    gcc -shared -o $@ $^
 
 clean:
-	rm -f *.o libmysyslog.a
+    rm -f $(OBJ) $(TARGET)
+
+deb:
+    dh_make --createorig -s -p libmysyslog_1.0-1
+    dpkg-buildpackage -us -uc
