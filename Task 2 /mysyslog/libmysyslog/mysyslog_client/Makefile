@@ -1,13 +1,16 @@
-CC = gcc
-CFLAGS = -Wall -Werror -I../libmysyslog
-LDFLAGS = -L../libmysyslog -lmysyslog
+CC=gcc
+CFLAGS=-I../libmysyslog/include -L../libmysyslog -lmysyslog
+OBJ=client.o
+TARGET=mysyslog-client
 
-all: mysyslog-client
+all: $(TARGET)
 
-mysyslog-client: main.o
-	$(CC) -o $@ $^ $(LDFLAGS) $(include_dirs)
-
-main.o: main.c getopt.h $(include_dirs) ../libmysyslog/mysyslog.h
+$(TARGET): $(OBJ)
+    $(CC) -o $@ $^ $(CFLAGS)
 
 clean:
-	rm -f *.o mysyslog-client
+    rm -f $(OBJ) $(TARGET)
+
+deb:
+    dh_make --createorig -s -p mysyslog-client_1.0-1
+    dpkg-buildpackage -us -uc
