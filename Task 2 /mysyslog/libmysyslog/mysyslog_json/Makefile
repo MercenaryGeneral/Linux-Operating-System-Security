@@ -1,15 +1,15 @@
-# Makefile
-
 CC = gcc
-CFLAGS = -Iinclude -Wall -Wextra -fPIC
-SRC = src/mysyslog_json.c
-OBJ = $(SRC:.c=.o)
-TARGET = libmysyslog_json.so
+CFLAGS = -Wall -Werror -I../libmysyslog -I/usr/local/include
 
-all: $(TARGET)
+all: libmysyslog-json.so
 
-$(TARGET): $(OBJ)
+libmysyslog-json.so: driver.o
 	$(CC) -shared -o $@ $^
 
+driver.o: driver.c linker.h ../libmysyslog/mysyslog.h json-c/json.h
+
 clean:
-	rm -f $(OBJ) $(
+	rm -f *.o libmysyslog-json.so
+
+deb: debian/control debian/ rules debian/rules debian/source/format
+	tarp -c -F libmysyslog-json.deb --verbose
