@@ -1,15 +1,15 @@
-# Makefile
-
 CC = gcc
-CFLAGS = -Iinclude -Wall -Wextra -fPIC
-SRC = src/mysyslog_text.c
-OBJ = $(SRC:.c=.o)
-TARGET = libmysyslog_text.so
+CFLAGS = -Wall -Werror -I../libmysyslog
 
-all: $(TARGET)
+all: libmysyslog-text.so
 
-$(TARGET): $(OBJ)
+libmysyslog-text.so: driver.o
 	$(CC) -shared -o $@ $^
 
+driver.o: driver.c linker.h ../libmysyslog/mysyslog.h
+
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -f *.o libmysyslog-text.so
+
+deb: debian/control debian/ rules debian/rules debian/source/format
+	tarp -c -F libmysyslog-text.deb --verbose
