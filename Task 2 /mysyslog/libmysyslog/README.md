@@ -1,10 +1,31 @@
 # libmysyslog
 
-A reusable logging library for C with support for different formats through pluggable drivers.
+## Описание
+Библиотека `libmysyslog` предоставляет функции для журналирования сообщений в различных форматах.
 
-## Building
-
-To build the library, run the following command in the `libmysyslog` directory:
+## Сборка
+Используйте команду `make` для сборки библиотеки.
 
 ```bash
-make all
+make
+```
+ 
+Установка
+Для установки deb-пакета выполните:
+
+```
+make deb
+```
+
+Использование
+Подключите библиотеку в своем проекте и используйте функцию mysyslog().
+
+Пример использования:
+
+```
+#include "mysyslog.h"
+
+int main() {
+    mysyslog("Hello, World!", INFO, 0, 0, "log.txt");
+    return 0;
+}
