@@ -1,14 +1,16 @@
-CC = gcc
-CFLAGS = -Wall -Werror -I../libmysyslog -I/usr/local/include/json-c
+CC=gcc
+CFLAGS=-Iinclude -fPIC
+OBJ=json_driver.o
+TARGET=libmysyslog-json.so
 
-.PHONY: all clean deb
+all: $(TARGET)
 
-all: libmysyslog-json.so
-
-libmysyslog-json.so: driver.o
-	$(CC) -shared -o $@ $^
-
-driver.o: driver.c linker.h ../libmysyslog/mysyslog.h json-c/json.h
+$(TARGET): $(OBJ)
+    gcc -shared -o $@ $^
 
 clean:
-	rm -f *.o libmysyslog-json.so
+    rm -f $(OBJ) $(TARGET)
+
+deb:
+    dh_make --createorig -s -p libmysyslog-json_1.0-1
+    dpkg-buildpackage -us -uc
