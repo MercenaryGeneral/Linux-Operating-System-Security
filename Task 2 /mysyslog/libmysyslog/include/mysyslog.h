@@ -1,30 +1,12 @@
-// include/mysyslog.h
-
 #ifndef MYSYSLOG_H
 #define MYSYSLOG_H
 
-// Уровни журналирования
-typedef enum {
-    DEBUG,
-    INFO,
-    WARN,
-    ERROR,
-    CRITICAL
-} LogLevel;
+#define DEBUG 0
+#define INFO 1
+#define WARN 2
+#define ERROR 3
+#define CRITICAL 4
 
-// Форматы вывода
-typedef enum {
-    TEXT,
-    JSON
-} LogFormat;
-
-// Драйверы вывода
-typedef enum {
-    DRIVER_CONSOLE,
-    DRIVER_FILE
-} LogDriver;
-
-// Функция для записи в журнал
-int mysyslog(const char* msg, LogLevel level, LogDriver driver, LogFormat format, const char* path);
+int mysyslog(const char* msg, int level, int driver, int format, const char* path);
 
 #endif // MYSYSLOG_H
