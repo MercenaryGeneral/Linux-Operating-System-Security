@@ -1,6 +1,8 @@
 CC = gcc
 CFLAGS = -Wall -Werror
 
+.PHONY: all clean deb install
+
 all: libmysyslog.a
 
 libmysyslog.a: mysyslog.o
@@ -10,6 +12,3 @@ mysyslog.o: mysyslog.c mysyslog.h
 
 clean:
 	rm -f *.o libmysyslog.a
-
-deb: debian/control debian/ rules debian/rules debian/source/format
-	tarp -c -F libmysyslog.deb --verbose
