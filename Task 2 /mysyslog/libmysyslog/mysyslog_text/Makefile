@@ -1,14 +1,16 @@
-CC = gcc
-CFLAGS = -Wall -Werror -I../libmysyslog
+CC=gcc
+CFLAGS=-Iinclude -fPIC
+OBJ=text_driver.o
+TARGET=libmysyslog-text.so
 
-.PHONY: all clean deb
+all: $(TARGET)
 
-all: libmysyslog-text.so
-
-libmysyslog-text.so: driver.o
-	$(CC) -shared -o $@ $^
-
-driver.o: driver.c linker.h ../libmysyslog/mysyslog.h
+$(TARGET): $(OBJ)
+    gcc -shared -o $@ $^
 
 clean:
-	rm -f *.o libmysyslog-text.so
+    rm -f $(OBJ) $(TARGET)
+
+deb:
+    dh_make --createorig -s -p libmysyslog-text_1.0-1
+    dpkg-buildpackage -us -uc
