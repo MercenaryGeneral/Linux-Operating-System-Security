@@ -1,23 +1,14 @@
 #ifndef MYSYSLOG_H
 #define MYSYSLOG_H
 
-#include <stdint.h>
+#include <time.h>
 
-typedef enum {
-	MYSYSLOG_DEBUG,
-	MYSYSLOG_INFO,
-	MYSYSLOG_WARN,
-	MYSYSLOG_ERROR,
-	MYSYSLOG_CRITICAL
-} mysyslog_level_t;
+#define DEBUG 0
+#define INFO 1
+#define WARN 2
+#define ERROR 3
+#define CRITICAL 4
 
-typedef struct {
-	void (*init)(void);
-	void (*log)(const char* msg, mysyslog_level_t level, const char* path);
-} mysyslog_driver_t;
-
-#define mysyslog(msg, level, driver, format, path) \
-	extern void _mysyslog(const char* msg, mysyslog_level_t level, int driver, int format, const char* path); \
-	_mysyslog(msg, level, driver, format, path)
+int mysyslog(const char* msg, int level, int driver, int format, const char* path);
 
 #endif // MYSYSLOG_H
