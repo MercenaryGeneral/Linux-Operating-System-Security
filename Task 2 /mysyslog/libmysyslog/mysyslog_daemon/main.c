@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <syslog.h>
 #include <json-c/json.h>
-#include "Task 2 /mysyslog/libmysyslog/mysyslog.h"
+#include "../libmysyslog/mysyslog.h"
 
 void
 daemonize(void) {
