@@ -17,3 +17,7 @@ Options:
   -d, --driver   Driver to use (text, json)
   -f, --format   Format to use (text, json)
   -p, --path    Log file path
+
+To create a debian package, run:
+
+make deb
