@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h>
-#include "Task 2 /mysyslog/libmysyslog/mysyslog.h"
+#include "../libmysyslog/mysyslog.h"
 
 static const struct option long_options[] = {
 	{ "message", required_argument, 0, 'm' },
