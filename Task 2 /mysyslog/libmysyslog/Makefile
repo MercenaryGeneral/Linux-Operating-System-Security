@@ -1,15 +1,15 @@
-# Makefile
-
 CC = gcc
-CFLAGS = -Iinclude -Wall -Wextra
-SRC = src/mysyslog.c
-OBJ = $(SRC:.c=.o)
-TARGET = libmysyslog.a
+CFLAGS = -Wall -Werror
 
-all: $(TARGET)
+all: libmysyslog.a
 
-$(TARGET): $(OBJ)
-	ar rcs $@ $^
+libmysyslog.a: mysyslog.o
+	$(CC) -shared -o $@ $^
+
+mysyslog.o: mysyslog.c mysyslog.h
 
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -f *.o libmysyslog.a
+
+deb: debian/control debian/ rules debian/rules debian/source/format
+	tarp -c -F libmysyslog.deb --verbose
