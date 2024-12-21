@@ -1,27 +1,7 @@
 # mysyslog-client
 
-## Описание
-Клиентское приложение для использования библиотеки `libmysyslog` и журналирования сообщений.
-
-## Сборка
-Используйте команду `make` для сборки клиента.
-
-```bash
-make
-```
- 
-## Установка
-Для установки deb-пакета выполните:
-
-```
-make deb
-```
-
-## Использование
-Запустите клиент с параметрами:
-```
-./mysyslog-client -m "Your message" -l <level> -d <driver> -f <format> -p <path>
-```
-Пример:
-```
-./mysyslog-client -m "Hello, World!" -l 1 -d 0 -f 0 -p "log.txt"
+Open: cd .../mysyslog/mysyslog-client
+Makefile: cd .../mysyslog
+          make all
+TEXT_FORMAT ./mysyslog-client -m "FREE" -l INFO -d 0 -f 0 -p /home/astra/Desktop/textlog.log
+JSON_FORMAT ./mysyslog-client -m "FREE" -l INFO -d 1 -f 1 -p /home/astra/Desktop/textlog.log
