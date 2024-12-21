@@ -1,4 +1,4 @@
-# MySyslog
+# Mysyslog
 
 This repository contains a logging system implemented in C.
 It includes:
